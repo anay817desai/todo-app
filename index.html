@@ -3,23 +3,66 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="A serverless to-do app built on AWS with Lambda, DynamoDB and CloudFront" />
+  <meta name="theme-color" content="#6c63ff" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph tags (improves SEO + social sharing) -->
+  <meta property="og:title" content="My To-Do App" />
+  <meta property="og:description" content="A serverless to-do app built on AWS" />
+  <meta property="og:type" content="website" />
+
   <title>My To-Do App</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <div class="container">
-    <h1>My To-Do List</h1>
+  <!-- LOGIN SCREEN — shown when not logged in -->
+  <div class="container" id="loginScreen" style="display:none; text-align:center;" role="main" aria-label="Login screen">
+    <h1>My To-Do App</h1>
+    <p style="color:#666; margin-bottom:32px;">Sign in to access your personal to-do list</p>
+    <button onclick="login()" style="padding:14px 40px; font-size:16px;" aria-label="Sign in or sign up to your account">Sign In / Sign Up</button>
+  </div>
 
-    <div class="input-row">
-      <input type="text" id="todoInput" placeholder="What needs to be done?" />
-      <button onclick="addTodo()">Add</button>
+  <!-- APP SCREEN — shown when logged in -->
+  <div class="container" id="appScreen" style="display:none;" role="main" aria-label="To-do app">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+      <h1>My To-Do List</h1>
+      <div style="text-align:right;">
+        <p id="userEmail" style="font-size:13px; color:#666; margin-bottom:6px;" aria-live="polite"></p>
+        <button onclick="logout()" style="padding:6px 14px; font-size:13px; background:#eee; color:#333;" aria-label="Sign out of your account">Sign Out</button>
+      </div>
     </div>
 
-    <ul id="todoList">
-      <!-- To-do items appear here -->
-    </ul>
+    <div class="input-row" role="search" aria-label="Add a new to-do">
+      <label for="todoInput" class="sr-only">New to-do item</label>
+      <input
+        type="text"
+        id="todoInput"
+        placeholder="What needs to be done?"
+        aria-label="Enter a new to-do item"
+        autocomplete="off"
+      />
+      <button onclick="addTodo()" aria-label="Add new to-do item">Add</button>
+    </div>
+
+    <ul id="todoList" aria-label="Your to-do list" aria-live="polite"></ul>
   </div>
+
+  <!-- Screen reader only helper class -->
+  <style>
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
 
   <script src="app.js"></script>
 </body>
